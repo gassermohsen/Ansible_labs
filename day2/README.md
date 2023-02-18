@@ -14,10 +14,14 @@ A Task to install nexus and sonarQube using ansible on aws ec2 private instances
    6) 1 public ec2 (Jumb host)
 
 
-#### To build the infrastructure 
+#### To build the infrastructure
+###### You got modules for every component you can edit what you want from the main.tf
+
+---
 Go to terrafrom directory and run
 
 ```bash 
+terraform init
 terrafrom apply 
 ```
 > **_NOTE:_** You will have a file in terraform directory called all-ip.txt this file contains all instances ips 
