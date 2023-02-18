@@ -1,0 +1,109 @@
+- name: Install Nginx
+  hosts: web
+  become: true
+  tasks:
+    - name: Update package indexes
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: change nginx port
+      replace:
+       path: /etc/nginx/sites-enabled/default
+       regexp: '805050'
+       replace: "8050"
+
+    - name: move index file
+      copy:
+        src: ./index.nginx-debian.html
+        dest: /var/www/html
+    - name: restart nginx
+      service: 
+        name: nginx 
+        state: restarted 
+        enabled: yes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# - name: Install and configure Nginx
+#   hosts: web
+#   become: true
+#   tasks:
+#     - name: Update package indexes
+#       apt:
+#         update_cache: yes
+
+#     - name: Install Nginx
+#       apt:
+#         name: nginx
+#         state: present
+#     - name: Change default Nginx page
+#       blockinfile:
+#         path: /var/www/html/index.nginx-debian.html
+#         block: |
+#           <html>
+#           <head>
+#           <title>Welcome to Nginx</title>
+#           </head>
+#           <body>
+#           <h1>From Gasser !</h1>
+#           </body>
+#           </html>
+#     - name: change nginx port
+#       replace:
+#         path: /etc/nginx/sites-enabled/default
+#         regexp: '80'
+#         replace: "8084"
+ 
+
+#     - name: restart nginx  
+#       service: name=nginx state=restarted
+#       become: true
+#       become_method: sudo
+
+# - name: install nginx
+#    hosts: web
+#    become: true
+#    tasks:
+#     - name: update
+#       command: apt update 
+      
+#     - name: install nginx
+#       apt:
+#         name: nginx
+#         state: present
+
+#     - name: Change Nginx default port to 8050
+#       lineinfile:
+#       path: /etc/nginx/nginx.conf
+#       regexp: 'listen\s+80;'
+#       line: '    listen 8050;'
+
+
+   # - name: Change Nginx default port to 8040
+    #   lineinfile:
+    #     path: /etc/nginx/nginx.conf
+    #     regexp: 'listen\s+80;'
+    #     line: '    listen 8040;'
